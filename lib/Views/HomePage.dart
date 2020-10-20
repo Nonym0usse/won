@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:won/Models/Country.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,19 +8,16 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  Map<String, dynamic> countries;
+  List<Country> countries = new List<Country>();
 
   @override
   void initState() {
-    Firestore.instance
-        .collection("countries")
-        .document("country_flags")
-        .snapshots()
-        .listen((event) {
-      setState(() {
-        countries = event.data;
-        print(countries);
-      });
+    Firestore.instance.collection("countries").getDocuments().then((value) {
+      for (var item in value.documents) {
+        setState(() {
+          countries.add(Country.fromJson(item.data));
+        });
+      }
     });
     super.initState();
   }
@@ -36,14 +34,14 @@ class HomePageState extends State<HomePage> {
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: countries.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(3),
                     child: SizedBox(
                         child: Material(
                       shape: RoundedRectangleBorder(),
-                      child: Image.network(countries['France']),
+                      child: Image.network(countries[index].imageUrl),
                     )),
                   );
                 },
