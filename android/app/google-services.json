@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "673077424172",
+    "firebase_url": "https://won-fr.firebaseio.com",
+    "project_id": "won-fr",
+    "storage_bucket": "won-fr.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:673077424172:android:1d0a1ec1ab31ecb2b9e189",
+        "android_client_info": {
+          "package_name": "com.microvella.won"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "673077424172-e9ti6uol1uordqkk8bbanl6iv1p4m56b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.microvella.won",
+            "certificate_hash": "7d409f54b4e1c4e68df0a2b0d910d42a6237118e"
+          }
+        },
+        {
+          "client_id": "673077424172-p0dh9tiq5t5kphauebjspvk5covdrq58.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwtf0ZQanJvmkUm3fdEXMnLHazTCo6tns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "673077424172-p0dh9tiq5t5kphauebjspvk5covdrq58.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

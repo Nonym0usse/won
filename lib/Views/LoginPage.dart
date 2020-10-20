@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -7,7 +8,8 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   _login() {
-    print("----- LOGIN -----");
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   _signup() {
