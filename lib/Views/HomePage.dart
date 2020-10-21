@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:won/Models/Country.dart';
+import 'package:won/Views/Widgets/FlagButton.dart';
+
+import 'LearningListsPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,15 +13,26 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   List<Country> countries = new List<Country>();
 
-  @override
-  void initState() {
+  _setFlags(List<Country> cList) {
     Firestore.instance.collection("countries").getDocuments().then((value) {
       for (var item in value.documents) {
         setState(() {
-          countries.add(Country.fromJson(item.data));
+          cList.add(Country.fromJson(item.data));
         });
       }
     });
+  }
+
+  _learningLists(String countryName) {
+    return Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => LearningListsPage(countryName)));
+  }
+
+  @override
+  void initState() {
+    _setFlags(countries);
     super.initState();
   }
 
@@ -36,13 +50,11 @@ class HomePageState extends State<HomePage> {
                 shrinkWrap: true,
                 itemCount: countries.length,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(3),
-                    child: SizedBox(
-                        child: Material(
-                      shape: RoundedRectangleBorder(),
-                      child: Image.network(countries[index].imageUrl),
-                    )),
+                  return FlagButton(
+                    country: countries[index],
+                    onTapped: () {
+                      _learningLists(countries[index].name);
+                    },
                   );
                 },
               )

@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:won/Models/Country.dart';
 
 class FlagButton extends StatelessWidget {
   const FlagButton({Key key, this.country, this.onTapped});
 
-  final String country;
+  final Country country;
   final Function onTapped;
 
-  static const Map<String, String> countries = {};
-
-  _flag(String countryName) {}
+  _flag(String countryFlagUrl) {
+    return Image.network(countryFlagUrl);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
-      shape: CircleBorder(),
-      child: Column(
-        children: [
-          Material(
-            shape: CircleBorder(),
-            child: ClipOval(
-              child: _flag(country),
-            ),
-          )
-        ],
+    return Padding(
+      padding: EdgeInsets.all(5),
+      child: RaisedButton(
+        color: Colors.white12,
+        elevation: 0,
+        shape: RoundedRectangleBorder(),
+        child: _flag(country.imageUrl),
+        onPressed: onTapped,
       ),
-      onPressed: onTapped,
     );
   }
 }
