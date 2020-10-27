@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:won/Models/Country.dart';
 import 'package:won/Views/Widgets/FlagButton.dart';
+import 'package:won/Views/Widgets/WaitingIndicator.dart';
 
 import 'LearningListsPage.dart';
 
@@ -36,30 +37,49 @@ class HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  // --- RENDERING --- //
+
+  Widget countriesList(BuildContext context) {
+    return Center(
+      child: Column(
+        children: [
+          Text("Quelle langue souhaitez-vous apprendre?"),
+          countries.isEmpty
+              ? WaitingIndicator()
+              : GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 4),
+                  shrinkWrap: true,
+                  itemCount: countries.length,
+                  itemBuilder: (context, index) {
+                    return FlagButton(
+                      country: countries[index],
+                      onTapped: () {
+                        _learningLists(countries[index].name);
+                      },
+                    );
+                  },
+                )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Center(
-          child: Column(
-            children: [
-              Text("Quelle langue souhaitez-vous apprendre?"),
-              GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                shrinkWrap: true,
-                itemCount: countries.length,
-                itemBuilder: (context, index) {
-                  return FlagButton(
-                    country: countries[index],
-                    onTapped: () {
-                      _learningLists(countries[index].name);
-                    },
-                  );
-                },
-              )
-            ],
-          ),
-        ));
+      appBar: AppBar(
+        title: Text("WON! - Country Selection"),
+      ),
+      body: countriesList(context),
+      floatingActionButton: FloatingActionButton(
+        child: Image.asset(
+          "assets/icon_earth_add.png",
+          width: 50,
+          height: 50,
+        ),
+        onPressed: () {},
+      ),
+    );
   }
 }
